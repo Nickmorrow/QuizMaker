@@ -11,8 +11,8 @@ namespace QuizMaker
         public static string StartOrLoadQuiz()
         {
             string userAnswer = "";
-            string Lstring = "l";
-            string Sstring = "s";
+            string lString = "l";
+            string nString = "n";
 
             Console.WriteLine("***Welcome to QuizMaker!***\n");
             Console.WriteLine("Press 'L' to load an existing quiz, press 'S' to start a new quiz.\n");
@@ -21,12 +21,12 @@ namespace QuizMaker
             {
                 userAnswer = Console.ReadLine().ToLower();
 
-                if (userAnswer != Lstring && userAnswer != Sstring)
+                if (userAnswer != lString && userAnswer != nString)
                 {
                     Console.WriteLine("Please enter either 'L' or 'S.'");
                 }
                 
-            } while (userAnswer != Lstring && userAnswer != Sstring);
+            } while (userAnswer != lString && userAnswer != nString);
             
             Console.Clear();
 

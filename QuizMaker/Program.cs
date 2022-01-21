@@ -3,15 +3,16 @@
 string yesString = "y";
 string noString = "n";
 string loadQuiz = "l";
-string startQuiz = "s";
+string newQuiz = "n";
 string userStartOrLoad;
 
 userStartOrLoad = QuizMaker.UIMethods.StartOrLoadQuiz();//Welcome message, asks user if they want to start a new quiz or load existing, stores answer
 
-if (userStartOrLoad == startQuiz)
+if (userStartOrLoad == newQuiz)
 {      
 
-    QuizMaker.Question questionOne = new QuizMaker.Question();
+    QuizMaker.Question questionOne = new QuizMaker.Question();//work on method to create question and answers, writes them to xml file
+                                                              //asks user if they want to create another question or if the quiz is complete
     
     Console.WriteLine("Enter a multiple choice question");
     questionOne.question = Console.ReadLine();
