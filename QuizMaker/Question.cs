@@ -9,11 +9,16 @@ namespace QuizMaker
     internal class Question
     {
         public string question;
-        public string a;
-        public string b;
-        public string c;
-        public string d;
+        public string answerA;
+        public string answerB;
+        public string answerC;
+        public string answerD;
         public string correctAnswer;
+
+        public void Save()
+        {
+            
+        }
 
         public override string ToString()
         {

@@ -15,7 +15,7 @@ namespace QuizMaker
             string nString = "n";
 
             Console.WriteLine("***Welcome to QuizMaker!***\n");
-            Console.WriteLine("Press 'L' to load an existing quiz, press 'S' to start a new quiz.\n");
+            Console.WriteLine("Press 'L' to load an existing quiz, press 'N' to start a new quiz.\n");
 
             do
             {
@@ -23,7 +23,7 @@ namespace QuizMaker
 
                 if (userAnswer != lString && userAnswer != nString)
                 {
-                    Console.WriteLine("Please enter either 'L' or 'S.'");
+                    Console.WriteLine("Please enter either 'L' or 'N.'");
                 }
                 
             } while (userAnswer != lString && userAnswer != nString);
@@ -31,6 +31,33 @@ namespace QuizMaker
             Console.Clear();
 
             return userAnswer;
+        }
+
+        public static string UserQuestion()
+        {
+            string question = "";
+            Console.WriteLine("Enter a multiple choice question");
+            question = Console.ReadLine();
+            Console.Clear();
+            return question;
+        }
+
+        public static string UserAnswer()
+        {
+            string answer = "";
+            Console.WriteLine("Enter an answer");
+            answer = Console.ReadLine();
+            Console.Clear();
+            return answer;
+        }
+
+        public static string UserAnswerCorrect()
+        {
+            string answer = "";
+            Console.WriteLine("Is this answer correct? y/n");
+            answer = Console.ReadLine();
+            Console.Clear();
+            return answer;
         }
 
 
