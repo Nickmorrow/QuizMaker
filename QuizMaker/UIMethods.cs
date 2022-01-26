@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuizMaker
 {
-    internal class UIMethods
+    public class UIMethods
     {
         public static string StartOrLoadQuiz()
         {
@@ -25,9 +25,9 @@ namespace QuizMaker
                 {
                     Console.WriteLine("Please enter either 'L' or 'N.'");
                 }
-                
+
             } while (userAnswer != lString && userAnswer != nString);
-            
+
             Console.Clear();
 
             return userAnswer;
@@ -51,13 +51,21 @@ namespace QuizMaker
             return answer;
         }
 
-        public static string UserAnswerCorrect()
+        public static bool UserAnswerCorrect()
         {
+            bool isCorrect;
             string answer = "";
             Console.WriteLine("Is this answer correct? y/n");
             answer = Console.ReadLine();
             Console.Clear();
-            return answer;
+            isCorrect = answer.ToLower() == "y";
+            return isCorrect;
+        }
+
+        public static QuestionAndAnswer GetQuestionAndAnswer()
+        {
+            throw new NotImplementedException();
+            //todo: implement :)
         }
 
 

@@ -6,19 +6,13 @@ using System.Threading.Tasks;
 
 namespace QuizMaker
 {
-    internal class Question
+    public class QuestionAndAnswer
     {
         public string question;
-        public string answerA;
-        public string answerB;
-        public string answerC;
-        public string answerD;
-        public string correctAnswer;
+        public List<Answer> answers;
+        
+        //TODO: Use list of Answer object here
 
-        public void Save()
-        {
-            
-        }
 
         public override string ToString()
         {
