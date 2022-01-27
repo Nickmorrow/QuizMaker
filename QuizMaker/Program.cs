@@ -2,14 +2,16 @@
 
 using QuizMaker;
 
-string yesString = "y";
-string noString = "n";
-string loadQuiz = "l";
-string newQuiz = "n";
-string userStartOrLoad;
-bool buildingQuiz = true;
 
-List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
+
+
+//enum QuizMode
+//{
+//    newQuiz,
+//    loadQuiz
+//}
+
+
 
 
 //for (int i = 0; i < 10; i++)
@@ -27,22 +29,23 @@ List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
 //System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(QnAs.GetType());
 //serializer.Serialize(writer, QnAs);
 
+bool startNewQuiz = false;
+bool buildingQuiz = true;
 
-userStartOrLoad = UIMethods.StartOrLoadQuiz();//Welcome message, asks user if they want to start a new quiz or load existing, stores answer
 
-if (userStartOrLoad == newQuiz)
+startNewQuiz = UIMethods.NewQuiz();//Welcome message, asks user if they want to start a new quiz or load existing, stores answer
+
+if (startNewQuiz)
 {
     while (buildingQuiz)
-    {
-        int correctAnswers = 0;
-        string isCorrectString = "";
-        bool isCorrect = false;
+    {        
 
+        List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
         QuestionAndAnswer qna = new QuestionAndAnswer();//work on method to create question and answers, writes them to xml file
-                                                                  //asks user if they want to create another question or if the quiz is complete       
-        qna.question = QuizMaker.UIMethods.UserQuestion();
+        Answer answer = new Answer();                                                         //asks user if they want to create another question or if the quiz is complete       
+        
 
-        qna.answers.Add();
+        
  
         
 

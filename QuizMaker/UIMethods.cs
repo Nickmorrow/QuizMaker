@@ -8,11 +8,10 @@ namespace QuizMaker
 {
     public class UIMethods
     {
-        public static string StartOrLoadQuiz()
+        public static bool NewQuiz()
         {
             string userAnswer = "";
-            string lString = "l";
-            string nString = "n";
+            bool start;
 
             Console.WriteLine("***Welcome to QuizMaker!***\n");
             Console.WriteLine("Press 'L' to load an existing quiz, press 'N' to start a new quiz.\n");
@@ -21,16 +20,16 @@ namespace QuizMaker
             {
                 userAnswer = Console.ReadLine().ToLower();
 
-                if (userAnswer != lString && userAnswer != nString)
+                if (userAnswer != "n" && userAnswer != "l")
                 {
                     Console.WriteLine("Please enter either 'L' or 'N.'");
                 }
 
-            } while (userAnswer != lString && userAnswer != nString);
+            } while (userAnswer != "n" && userAnswer != "l");
 
             Console.Clear();
-
-            return userAnswer;
+            start = userAnswer == "n";
+            return start;
         }
 
         public static string UserQuestion()
@@ -62,7 +61,18 @@ namespace QuizMaker
             return isCorrect;
         }
 
-        public static QuestionAndAnswer GetQuestionAndAnswer()
+        public static QuestionAndAnswer GetQuestion()
+        {
+            throw new NotImplementedException();
+            //todo: implement :)
+
+            Console.WriteLine("Enter a multiple choice question");
+            QuestionAndAnswer.question = Console.ReadLine();
+            Console.Clear();
+            return QuestionAndAnswer.question;
+        }
+
+        public static Answer GetAnswer()
         {
             throw new NotImplementedException();
             //todo: implement :)
