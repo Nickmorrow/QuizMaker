@@ -50,6 +50,11 @@ while (quizMaker)
             }
             else
             {
+                StreamWriter writer = File.CreateText("newfile.txt");
+
+                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(QnAs.GetType());
+                serializer.Serialize(writer, QnAs);
+
                 buildingQuiz = false;
                 startNewQuiz = false;
             }
