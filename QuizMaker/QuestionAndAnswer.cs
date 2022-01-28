@@ -9,7 +9,7 @@ namespace QuizMaker
     public class QuestionAndAnswer
     {
         public string question;
-        public List<Answer> answers;
+        public List<Answer> answers = new List<Answer>();
         
         //TODO: Use list of Answer object here
 

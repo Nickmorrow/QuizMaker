@@ -19,8 +19,8 @@ bool anotherQuestion;
 List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
 QuestionAndAnswer qna = new QuestionAndAnswer();
 Answer answer = new Answer();
-List<Answer> answers;
-qna.answers = answers = new List<Answer>();
+List<Answer> answers = new List<Answer>(); 
+qna.answers = answers;
 
 while (quizMaker)
 {
