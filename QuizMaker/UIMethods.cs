@@ -32,50 +32,61 @@ namespace QuizMaker
             return start;
         }
 
-        public static string UserQuestion()
-        {
-            string question = "";
-            Console.WriteLine("Enter a multiple choice question");
-            question = Console.ReadLine();
-            Console.Clear();
-            return question;
-        }
+        public static Answer UserAnswerCorrect()
+        {                      
+            //throw new NotImplementedException();
 
-        public static string UserAnswer()
-        {
-            string answer = "";
-            Console.WriteLine("Enter an answer");
-            answer = Console.ReadLine();
+            Console.WriteLine("Is this answer correct? y/n");
+            Answer answer = new Answer();
+            answer.isCorrect = Console.ReadLine().ToLower() == "y";
             Console.Clear();
             return answer;
         }
 
-        public static bool UserAnswerCorrect()
-        {
-            bool isCorrect;
-            string answer = "";
-            Console.WriteLine("Is this answer correct? y/n");
-            answer = Console.ReadLine();
-            Console.Clear();
-            isCorrect = answer.ToLower() == "y";
-            return isCorrect;
-        }
-
         public static QuestionAndAnswer GetQuestion()
         {
-            throw new NotImplementedException();
-            //todo: implement :)
+            //throw new NotImplementedException();           
 
             Console.WriteLine("Enter a multiple choice question");
-            QuestionAndAnswer.question = Console.ReadLine();
+            QuestionAndAnswer qna = new QuestionAndAnswer();
+            qna.question = Console.ReadLine();
             Console.Clear();
-            return QuestionAndAnswer.question;
+            return qna;
         }
 
         public static Answer GetAnswer()
         {
-            throw new NotImplementedException();
-            //todo: implement :)
+            //throw new NotImplementedException();
+
+            Console.WriteLine("Enter an Answer");
+            Answer answer = new Answer();
+            answer.answerString = Console.ReadLine();
+            Console.Clear();
+
+            Console.WriteLine("Is this answer correct? y/n");          
+            answer.isCorrect = Console.ReadLine().ToLower() == "y";
+            Console.Clear();
+            return answer;
+        }
+
+        public static bool anotherQuestion()
+        {
+            bool exit = false;
+            bool anotherQuestion;
+            Console.WriteLine("Press 'Enter' to enter another question, press 'any other key' to end quiz building.");
+            anotherQuestion = Console.ReadKey().Key == ConsoleKey.Enter; 
+            Console.Clear();
+            if (!anotherQuestion)
+            {
+                exit = true;
+            }
+            return anotherQuestion;
+           
+
+            
+
+            
+
         }
 
 
