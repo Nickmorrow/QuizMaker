@@ -83,11 +83,15 @@ while (quizMaker)
             if (answer.isCorrect)
             {
                 score++;
-                
-
+                UIMethods.Correct();
             }
-
+            else
+            {
+                UIMethods.InCorrect(qna);
+            }        
         }
+        UIMethods.QuizComplete(QnAs, score);
+
     }
 
 }

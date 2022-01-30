@@ -213,6 +213,14 @@ namespace QuizMaker
 
         }
 
+        public static void QuizComplete(List<QuestionAndAnswer> QnAs, int score)
+        {
+
+            Console.WriteLine($"Quiz complete, you got {score} out of {QnAs.Count} correct\nPress any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
 
 
 
