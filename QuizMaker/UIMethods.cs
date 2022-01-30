@@ -110,7 +110,7 @@ namespace QuizMaker
             string userInput;
             bool answeringQuestion = true;
 
-            Console.WriteLine($"Question number{qnaNum} {qna.question}");
+            Console.WriteLine($"Question number {qnaNum} {qna.question}");
             Console.WriteLine($"{qna.answers[0].answerString}");
             Console.WriteLine($"{qna.answers[1].answerString}");
             Console.WriteLine($"{qna.answers[2].answerString}");
@@ -207,7 +207,7 @@ namespace QuizMaker
                     CorrectAnswers.Add(qna.answers[i]);
                 }
             }
-            Console.WriteLine($"Incorrect! the correct answer was {CorrectAnswers} \npress any key to continue to the next question");
+            Console.WriteLine($"Incorrect! the correct answer was {CorrectAnswers.ToString()} \npress any key to continue to the next question");
             Console.ReadKey();
             Console.Clear();
 

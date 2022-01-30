@@ -88,7 +88,8 @@ while (quizMaker)
             else
             {
                 UIMethods.InCorrect(qna);
-            }        
+            }
+            qnaNum++;
         }
         UIMethods.QuizComplete(QnAs, score);
 
