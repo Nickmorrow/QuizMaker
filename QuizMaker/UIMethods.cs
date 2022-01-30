@@ -71,7 +71,7 @@ namespace QuizMaker
         {
             //throw new NotImplementedException();
 
-            Console.WriteLine("Enter an Answer");
+            Console.WriteLine("Enter an Answer, beginning with A, B, C, or D");
             Answer answer = new Answer();
             answer.answerString = Console.ReadLine();
             Console.Clear();
@@ -111,10 +111,10 @@ namespace QuizMaker
             bool answeringQuestion = true;
 
             Console.WriteLine($"Question number{qnaNum} {qna.question}");
-            Console.WriteLine($"A. {qna.answers[0]}");
-            Console.WriteLine($"B. {qna.answers[1]}");
-            Console.WriteLine($"C. {qna.answers[2]}");
-            Console.WriteLine($"D. {qna.answers[3]}");
+            Console.WriteLine($"{qna.answers[0].answerString}");
+            Console.WriteLine($"{qna.answers[1].answerString}");
+            Console.WriteLine($"{qna.answers[2].answerString}");
+            Console.WriteLine($"{qna.answers[3].answerString}");
 
             while (answeringQuestion)
             {
@@ -186,6 +186,33 @@ namespace QuizMaker
             return rndQuestion;
 
         }
+
+        public static void Correct()
+        {
+            
+            Console.WriteLine("Correct! press any key to continue to the next question");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public static void InCorrect(QuestionAndAnswer qna)
+        {
+            Answer answer= new Answer();
+            List<Answer> CorrectAnswers = new List<Answer>();
+            
+            for (int i = 0; i < qna.answers.Count; i++)
+            {
+                if (qna.answers[i].isCorrect)
+                {
+                    CorrectAnswers.Add(qna.answers[i]);
+                }
+            }
+            Console.WriteLine($"Incorrect! the correct answer was {CorrectAnswers} \npress any key to continue to the next question");
+            Console.ReadKey();
+            Console.Clear();
+
+        }
+
 
 
 
