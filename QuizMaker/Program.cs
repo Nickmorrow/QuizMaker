@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-
+using System.Xml.Serialization;
 using QuizMaker;
 
 
@@ -15,6 +15,13 @@ bool quizMaker = true;
 bool startNewQuiz;
 bool buildingQuiz = true;
 bool anotherQuestion;
+bool answerCorrect;
+int score;
+
+XmlSerializer serializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
+var path = @"E:\Projects\Programming\C#\Rakete Mentoring\Week 11\QuizMaker\UserTests\userTest.xml";
+
+Random QnASelector = new Random();
 
 List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
 QuestionAndAnswer qna = new QuestionAndAnswer();
@@ -49,25 +56,34 @@ while (quizMaker)
                 buildingQuiz = true;
             }
             else
-            {
-                StreamWriter writer = File.CreateText("newfile.txt");
-
-                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(QnAs.GetType());
-                serializer.Serialize(writer, QnAs);
-
+            {                              
+                using (FileStream file = File.Create(path))
+                {
+                    serializer.Serialize(file, QnAs);
+                }
+           
                 buildingQuiz = false;
                 startNewQuiz = false;
             }
+        }
+    }
+    if (!startNewQuiz)
+    {
 
+        using (FileStream file = File.OpenRead(path))
+        {
+            QnAs = serializer.Deserialize(file) as List<QuestionAndAnswer>;
         }
 
+        for (int i = 0; i < QnAs.Count; i++)
+        {
 
 
-
-
-
+        }
     }
+
 }
+
 
 
 
