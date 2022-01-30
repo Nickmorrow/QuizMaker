@@ -90,20 +90,109 @@ namespace QuizMaker
             bool exit = false;
             bool anotherQuestion;
             Console.WriteLine("Press 'Enter' to enter another question, press 'any other key' to end quiz building.");
-            anotherQuestion = Console.ReadKey().Key == ConsoleKey.Enter; 
+            anotherQuestion = Console.ReadKey().Key == ConsoleKey.Enter;
             Console.Clear();
             if (!anotherQuestion)
             {
                 exit = true;
             }
             return anotherQuestion;
-           
+        }
+        /// <summary>
+        /// Asks question stores answer
+        /// </summary>
+        /// <param name="qna"></param>
+        /// <param name="qnaNum"></param>
+        /// <returns>Answer object</returns>
+        public static Answer AskQGetA(QuestionAndAnswer qna, int qnaNum)
+        {
+            Answer answer = new Answer();
+            string userInput;
+            bool answeringQuestion = true;
 
-            
+            Console.WriteLine($"Question number{qnaNum} {qna.question}");
+            Console.WriteLine($"A. {qna.answers[0]}");
+            Console.WriteLine($"B. {qna.answers[1]}");
+            Console.WriteLine($"C. {qna.answers[2]}");
+            Console.WriteLine($"D. {qna.answers[3]}");
 
-            
+            while (answeringQuestion)
+            {
+                userInput = Console.ReadLine().ToUpper();
+
+                //if (userInput == "A")
+                //{
+                //    answer = qna.answers[0];
+                //    answeringQuestion = false;
+                //}
+                //if (userInput == "B")
+                //{
+                //    answer = qna.answers[1];
+                //    answeringQuestion = false;
+                //}
+                //if (userInput == "C")
+                //{
+                //    answer = qna.answers[2];
+                //    answeringQuestion = false;
+                //}
+                //if (userInput == "D")
+                //{
+                //    answer = qna.answers[3];
+                //    answeringQuestion = false;
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Please enter either A, B, C, or D");
+                //}
+                switch (userInput)
+                {
+                    case "A":
+                        answer = qna.answers[0];
+                        answeringQuestion = false;
+                        break;
+                    case "B":
+                        answer = qna.answers[1];
+                        answeringQuestion = false;
+                        break;
+                    case "C":
+                        answer = qna.answers[2];
+                        answeringQuestion = false;
+                        break;
+                    case "D":
+                        answer = qna.answers[3];
+                        answeringQuestion = false;
+                        break;
+                    default:
+                        Console.WriteLine("Please enter either A, B, C, or D");
+                        answeringQuestion = true;
+                        break;
+                }                                       
+            }
+
+            Console.Clear();
+            return answer;
 
         }
+        /// <summary>
+        /// Randomly selects Question from list
+        /// </summary>
+        /// <param name="QnAs"></param>
+        /// <returns>QuestionAndAnswer object</returns>
+        public static QuestionAndAnswer GetRndQnA(List<QuestionAndAnswer> QnAs)
+        {
+            Random random = new Random();
+            QuestionAndAnswer rndQuestion = new QuestionAndAnswer();
+            rndQuestion = QnAs[random.Next(QnAs.Count)];
+            return rndQuestion;
+
+        }
+
+
+
+
+
+
+
 
 
     }

@@ -16,7 +16,8 @@ bool startNewQuiz;
 bool buildingQuiz = true;
 bool anotherQuestion;
 bool answerCorrect;
-int score;
+int score = 0;
+int qnaNum = 1;
 
 XmlSerializer serializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
 var path = @"E:\Projects\Programming\C#\Rakete Mentoring\Week 11\QuizMaker\UserTests\userTest.xml";
@@ -77,7 +78,14 @@ while (quizMaker)
 
         for (int i = 0; i < QnAs.Count; i++)
         {
+            qna = UIMethods.GetRndQnA(QnAs);
+            answer = UIMethods.AskQGetA(qna, qnaNum);
+            if (answer.isCorrect)
+            {
+                score++;
+                
 
+            }
 
         }
     }
