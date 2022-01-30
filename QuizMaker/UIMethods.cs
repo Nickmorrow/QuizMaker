@@ -186,15 +186,20 @@ namespace QuizMaker
             return rndQuestion;
 
         }
-
+        /// <summary>
+        /// Tells user when they are correct
+        /// </summary>
         public static void Correct()
         {
             
-            Console.WriteLine("Correct! press any key to continue to the next question");
+            Console.WriteLine("Correct! press any key to continue");
             Console.ReadKey();
             Console.Clear();
         }
-
+        /// <summary>
+        /// Tells user if they are incorrect and tells them the correct answer
+        /// </summary>
+        /// <param name="qna"></param>
         public static void InCorrect(QuestionAndAnswer qna)
         {
             Answer answer= new Answer();
@@ -207,12 +212,16 @@ namespace QuizMaker
                     CorrectAnswers.Add(qna.answers[i]);
                 }
             }
-            Console.WriteLine($"Incorrect! the correct answer was {CorrectAnswers.ToString()} \npress any key to continue to the next question");
+            Console.WriteLine($"Incorrect! the correct answer was {CorrectAnswers.ToString()} \npress any key to continue");
             Console.ReadKey();
             Console.Clear();
 
         }
-
+        /// <summary>
+        /// Tells user when the quiz is over and gives them their score
+        /// </summary>
+        /// <param name="QnAs"></param>
+        /// <param name="score"></param>
         public static void QuizComplete(List<QuestionAndAnswer> QnAs, int score)
         {
 
