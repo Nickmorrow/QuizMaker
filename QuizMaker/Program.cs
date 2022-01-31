@@ -11,92 +11,93 @@ using QuizMaker;
 //    loadQuiz
 //}
 
-bool quizMaker = true;
-bool startNewQuiz;
-bool buildingQuiz = true;
-bool anotherQuestion;
-bool answerCorrect;
-int score = 0;
-int qnaNum = 1;
-
-XmlSerializer serializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
-var path = @"E:\Projects\Programming\C#\Rakete Mentoring\Week 11\QuizMaker\UserTests\userTest.xml";
-
-Random QnASelector = new Random();
-
-List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
-QuestionAndAnswer qna = new QuestionAndAnswer();
-Answer answer = new Answer();
-List<Answer> answers = new List<Answer>(); 
-qna.answers = answers;
-
-while (quizMaker)
+namespace QuizMaker
 {
-
-    startNewQuiz = UIMethods.NewQuiz();//Welcome message, asks user if they want to start a new quiz or load existing
-
-    if (startNewQuiz)
+    public class Program
     {
-        while (buildingQuiz)
+        public static void Main()
         {
 
-            qna = UIMethods.GetQuestion(); //asks user to enter question
-            
-            for (int i = 0; i < 4; i++) //gets 4 answers to question from user, asks whether the answer is correct
+            bool quizMaker = true;
+            bool startNewQuiz;
+            bool buildingQuiz = true;
+            bool anotherQuestion;
+            int score = 0;
+            int qnaNum = 1;
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
+            var path = @"E:\Projects\Programming\C#\Rakete Mentoring\Week 11\QuizMaker\UserTests\userTest.xml";
+
+            List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
+            QuestionAndAnswer qna;
+            Answer answer;
+
+            while (quizMaker)
             {
-                answer = UIMethods.GetAnswer();
-                qna.answers.Add(answer);
-            }
 
-            QnAs.Add(qna); // adds question and answers to list
+                startNewQuiz = UIMethods.NewQuiz();//Welcome message, asks user if they want to start a new quiz or load existing
 
-            anotherQuestion = UIMethods.anotherQuestion(); //asks user if they want to create another question or exit
-
-            if (anotherQuestion)
-            {
-                buildingQuiz = true;
-            }
-            else
-            {                              
-                using (FileStream file = File.Create(path))
+                if (startNewQuiz)
                 {
-                    serializer.Serialize(file, QnAs);
+                    while (buildingQuiz)
+                    {
+                        qna = UIMethods.GetQnA(); //asks user to enter question and answers
+                        QnAs.Add(qna); // adds question and answers to list
+
+                        anotherQuestion = UIMethods.anotherQuestion(); //asks user if they want to create another question or exit
+
+                        if (anotherQuestion)
+                        {
+                            buildingQuiz = true;
+                        }
+                        else
+                        {
+                            using (FileStream file = File.Create(path))
+                            {
+                                serializer.Serialize(file, QnAs);
+                            }
+
+                            buildingQuiz = false;
+                        }
+                    }
                 }
-           
-                buildingQuiz = false;
-                startNewQuiz = false;
+
+                if (!startNewQuiz)
+                {
+
+                    using (FileStream file = File.OpenRead(path))
+                    {
+                        QnAs = serializer.Deserialize(file) as List<QuestionAndAnswer>;
+                    }
+
+                    for (int i = 0; i < QnAs.Count; i++)
+                    {
+                        qna = UIMethods.GetRndQnA(QnAs);                //maybe different approach: shuffle list first, and then go one by one
+                        answer = UIMethods.AskQGetA(qna, qnaNum);
+                        if (answer.isCorrect)
+                        {
+                            score++;
+                            UIMethods.Correct();
+                        }
+                        else
+                        {
+                            UIMethods.InCorrect(qna);
+                        }
+                        qnaNum++;
+                    }
+                    UIMethods.QuizComplete(QnAs, score);
+
+                }
+
             }
         }
+
+        //public static QuestionAndAnswer Load(string path)
+        //{
+
+        //}
     }
-    if (!startNewQuiz)
-    {
-
-        using (FileStream file = File.OpenRead(path))
-        {
-            QnAs = serializer.Deserialize(file) as List<QuestionAndAnswer>;
-        }
-
-        for (int i = 0; i < QnAs.Count; i++)
-        {
-            qna = UIMethods.GetRndQnA(QnAs);
-            answer = UIMethods.AskQGetA(qna, qnaNum);
-            if (answer.isCorrect)
-            {
-                score++;
-                UIMethods.Correct();
-            }
-            else
-            {
-                UIMethods.InCorrect(qna);
-            }
-            qnaNum++;
-        }
-        UIMethods.QuizComplete(QnAs, score);
-
-    }
-
 }
-
 
 
 

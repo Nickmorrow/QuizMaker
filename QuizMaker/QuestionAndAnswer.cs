@@ -9,14 +9,14 @@ namespace QuizMaker
     public class QuestionAndAnswer
     {
         public string question;
-        public List<Answer> answers = new List<Answer>();
+        public List<Answer> Answers = new List<Answer>();
         
         //TODO: Use list of Answer object here
 
 
         public override string ToString()
         {
-            return base.ToString();
+            return $"{question} - {Answers.Count}";
         }
     }
 }

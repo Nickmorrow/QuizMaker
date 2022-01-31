@@ -10,5 +10,10 @@ namespace QuizMaker
     {
         public string answerString;
         public bool isCorrect;
+
+        public override string ToString()
+        {
+            return $"{answerString} - {isCorrect}";
+        }
     }
 }

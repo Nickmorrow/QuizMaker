@@ -61,25 +61,34 @@ namespace QuizMaker
             QuestionAndAnswer qna = new QuestionAndAnswer();
             qna.question = Console.ReadLine();
             Console.Clear();
+
+            //TODO get the 4 answers
             return qna;
         }
         /// <summary>
         /// Asks user to provide an answer to their question
         /// </summary>
         /// <returns> Answer object</returns>
-        public static Answer GetAnswer()
+        public static QuestionAndAnswer GetQnA()
         {
-            //throw new NotImplementedException();
-
-            Console.WriteLine("Enter an Answer, beginning with A, B, C, or D");
-            Answer answer = new Answer();
-            answer.answerString = Console.ReadLine();
+            Console.WriteLine("Enter a multiple choice question");
+            QuestionAndAnswer qna = new QuestionAndAnswer();
+            qna.question = Console.ReadLine();
             Console.Clear();
 
-            Console.WriteLine("Is this answer correct? y/n");          
-            answer.isCorrect = Console.ReadLine().ToLower() == "y";
-            Console.Clear();
-            return answer;
+            for (int i = 0; i < 4; i++) //gets 4 answers to question from user, asks whether the answer is correct
+            {                           
+                Console.WriteLine("Enter an Answer, beginning with A, B, C, or D");
+                Answer answer = new Answer();
+                answer.answerString = Console.ReadLine();
+                Console.Clear();
+
+                Console.WriteLine("Is this answer correct? y/n");
+                answer.isCorrect = Console.ReadLine().ToLower() == "y";
+                Console.Clear();
+                qna.Answers.Add(answer);
+            }
+            return qna;
         }
         /// <summary>
         /// Asks user if they would like to create another question and answers or exit building quiz
@@ -111,55 +120,31 @@ namespace QuizMaker
             bool answeringQuestion = true;
 
             Console.WriteLine($"Question number {qnaNum} {qna.question}");
-            Console.WriteLine($"{qna.answers[0].answerString}");
-            Console.WriteLine($"{qna.answers[1].answerString}");
-            Console.WriteLine($"{qna.answers[2].answerString}");
-            Console.WriteLine($"{qna.answers[3].answerString}");
+            Console.WriteLine($"{qna.Answers[0].answerString}");
+            Console.WriteLine($"{qna.Answers[1].answerString}");
+            Console.WriteLine($"{qna.Answers[2].answerString}");
+            Console.WriteLine($"{qna.Answers[3].answerString}");
 
             while (answeringQuestion)
             {
                 userInput = Console.ReadLine().ToUpper();
-
-                //if (userInput == "A")
-                //{
-                //    answer = qna.answers[0];
-                //    answeringQuestion = false;
-                //}
-                //if (userInput == "B")
-                //{
-                //    answer = qna.answers[1];
-                //    answeringQuestion = false;
-                //}
-                //if (userInput == "C")
-                //{
-                //    answer = qna.answers[2];
-                //    answeringQuestion = false;
-                //}
-                //if (userInput == "D")
-                //{
-                //    answer = qna.answers[3];
-                //    answeringQuestion = false;
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Please enter either A, B, C, or D");
-                //}
+               
                 switch (userInput)
                 {
                     case "A":
-                        answer = qna.answers[0];
+                        answer = qna.Answers[0];
                         answeringQuestion = false;
                         break;
                     case "B":
-                        answer = qna.answers[1];
+                        answer = qna.Answers[1];
                         answeringQuestion = false;
                         break;
                     case "C":
-                        answer = qna.answers[2];
+                        answer = qna.Answers[2];
                         answeringQuestion = false;
                         break;
                     case "D":
-                        answer = qna.answers[3];
+                        answer = qna.Answers[3];
                         answeringQuestion = false;
                         break;
                     default:
@@ -205,11 +190,11 @@ namespace QuizMaker
             Answer answer= new Answer();
             List<Answer> CorrectAnswers = new List<Answer>();
             
-            for (int i = 0; i < qna.answers.Count; i++)
+            for (int i = 0; i < qna.Answers.Count; i++)
             {
-                if (qna.answers[i].isCorrect)
+                if (qna.Answers[i].isCorrect)
                 {
-                    CorrectAnswers.Add(qna.answers[i]);
+                    CorrectAnswers.Add(qna.Answers[i]);
                 }
             }
             Console.WriteLine($"Incorrect! the correct answer was {CorrectAnswers.ToString()} \npress any key to continue");
@@ -229,15 +214,6 @@ namespace QuizMaker
             Console.ReadKey();
             Console.Clear();
         }
-
-
-
-
-
-
-
-
-
 
     }
 }
