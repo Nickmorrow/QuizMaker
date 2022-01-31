@@ -50,25 +50,9 @@ namespace QuizMaker
             return answer;
         }
         /// <summary>
-        /// Asks user to enter a question
+        /// Asks user to provide a question and answers
         /// </summary>
         /// <returns> QuestionAndAnswer object</returns>
-        public static QuestionAndAnswer GetQuestion()
-        {
-            //throw new NotImplementedException();           
-
-            Console.WriteLine("Enter a multiple choice question");
-            QuestionAndAnswer qna = new QuestionAndAnswer();
-            qna.question = Console.ReadLine();
-            Console.Clear();
-
-            //TODO get the 4 answers
-            return qna;
-        }
-        /// <summary>
-        /// Asks user to provide an answer to their question
-        /// </summary>
-        /// <returns> Answer object</returns>
         public static QuestionAndAnswer GetQnA()
         {
             Console.WriteLine("Enter a multiple choice question");

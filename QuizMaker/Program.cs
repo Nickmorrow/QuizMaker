@@ -5,11 +5,11 @@ using QuizMaker;
 
 
 
-//enum QuizMode
-//{
-//    newQuiz,
-//    loadQuiz
-//}
+enum QuizMode
+{
+    newQuiz, 
+    loadQuiz
+}
 
 namespace QuizMaker
 {
@@ -25,7 +25,6 @@ namespace QuizMaker
             int score = 0;
             int qnaNum = 1;
 
-            XmlSerializer serializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
             var path = @"E:\Projects\Programming\C#\Rakete Mentoring\Week 11\QuizMaker\UserTests\userTest.xml";
 
             List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
@@ -34,7 +33,6 @@ namespace QuizMaker
 
             while (quizMaker)
             {
-
                 startNewQuiz = UIMethods.NewQuiz();//Welcome message, asks user if they want to start a new quiz or load existing
 
                 if (startNewQuiz)
@@ -52,10 +50,7 @@ namespace QuizMaker
                         }
                         else
                         {
-                            using (FileStream file = File.Create(path))
-                            {
-                                serializer.Serialize(file, QnAs);
-                            }
+                            Save(path, QnAs);
 
                             buildingQuiz = false;
                         }
@@ -64,11 +59,7 @@ namespace QuizMaker
 
                 if (!startNewQuiz)
                 {
-
-                    using (FileStream file = File.OpenRead(path))
-                    {
-                        QnAs = serializer.Deserialize(file) as List<QuestionAndAnswer>;
-                    }
+                    Load(path, QnAs);                   
 
                     for (int i = 0; i < QnAs.Count; i++)
                     {
@@ -86,16 +77,30 @@ namespace QuizMaker
                         qnaNum++;
                     }
                     UIMethods.QuizComplete(QnAs, score);
-
                 }
 
             }
         }
 
-        //public static QuestionAndAnswer Load(string path)
-        //{
+        public static List<QuestionAndAnswer> Load(string path, List<QuestionAndAnswer> QnAs)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
+            using (FileStream file = File.OpenRead(path))
+            {
+                QnAs = serializer.Deserialize(file) as List<QuestionAndAnswer>;
+            }
+            return QnAs;
 
-        //}
+        }
+
+        public static void Save(string path, List<QuestionAndAnswer> QnAs)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
+            using (FileStream file = File.Create(path))
+            {
+                serializer.Serialize(file, QnAs);
+            }
+        }
     }
 }
 
