@@ -150,7 +150,7 @@ namespace QuizMaker
         public static QuestionAndAnswer GetRndQnA(List<QuestionAndAnswer> QnAs)
         {
             Random random = new Random();
-            QuestionAndAnswer rndQuestion = new QuestionAndAnswer();
+            QuestionAndAnswer rndQuestion;
             rndQuestion = QnAs[random.Next(QnAs.Count)];
             return rndQuestion;
 
@@ -171,7 +171,7 @@ namespace QuizMaker
         /// <param name="qna"></param>
         public static void InCorrect(QuestionAndAnswer qna)
         {
-            Answer answer= new Answer();
+            Answer answer;
             List<Answer> CorrectAnswers = new List<Answer>();
             
             for (int i = 0; i < qna.Answers.Count; i++)
@@ -195,6 +195,12 @@ namespace QuizMaker
         {
 
             Console.WriteLine($"Quiz complete, you got {score} out of {QnAs.Count} correct\nPress any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        public static void FolderEmpty()
+        {
+            Console.WriteLine("There are no files in this directory, press any key to return to the main menu");
             Console.ReadKey();
             Console.Clear();
         }

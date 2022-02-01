@@ -16,24 +16,24 @@ namespace QuizMaker
     public class Program
     {
         public static void Main()
-        {
-
+        {          
             bool quizMaker = true;
             bool startNewQuiz;
             bool buildingQuiz = true;
             bool anotherQuestion;
+            bool folderEmpty;
             int score = 0;
             int qnaNum = 1;
 
-            var path = @"E:\Projects\Programming\C#\Rakete Mentoring\Week 11\QuizMaker\UserTests\userTest.xml";
+            var path = @"E:\Projects\Programming\C#\Rakete Mentoring\Week 11\QuizMaker\UserTests\userTest.xml";           
 
             List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
             QuestionAndAnswer qna;
             Answer answer;
 
             while (quizMaker)
-            {
-                startNewQuiz = UIMethods.NewQuiz();//Welcome message, asks user if they want to start a new quiz or load existing
+            {             
+                startNewQuiz = UIMethods.NewQuiz();//Welcome message, asks user if they want to start a new quiz or load existing             
 
                 if (startNewQuiz)
                 {
@@ -55,30 +55,37 @@ namespace QuizMaker
                             buildingQuiz = false;
                         }
                     }
-                }
-
+                }               
                 if (!startNewQuiz)
-                {
-                    Load(path, QnAs);                   
+                {                   
+                    folderEmpty = !File.Exists(path);
 
-                    for (int i = 0; i < QnAs.Count; i++)
+                    if (folderEmpty)
                     {
-                        qna = UIMethods.GetRndQnA(QnAs);                //maybe different approach: shuffle list first, and then go one by one
-                        answer = UIMethods.AskQGetA(qna, qnaNum);
-                        if (answer.isCorrect)
-                        {
-                            score++;
-                            UIMethods.Correct();
-                        }
-                        else
-                        {
-                            UIMethods.InCorrect(qna);
-                        }
-                        qnaNum++;
+                        UIMethods.FolderEmpty();
                     }
-                    UIMethods.QuizComplete(QnAs, score);
-                }
+                    else
+                    {
+                        Load(path, QnAs);
 
+                        for (int i = 0; i < QnAs.Count; i++)
+                        {
+                            qna = UIMethods.GetRndQnA(QnAs);                //maybe different approach: shuffle list first, and then go one by one
+                            answer = UIMethods.AskQGetA(qna, qnaNum);
+                            if (answer.isCorrect)
+                            {
+                                score++;
+                                UIMethods.Correct();
+                            }
+                            else
+                            {
+                                UIMethods.InCorrect(qna);
+                            }
+                            qnaNum++;
+                        }
+                        UIMethods.QuizComplete(QnAs, score);
+                    }
+                }
             }
         }
 
