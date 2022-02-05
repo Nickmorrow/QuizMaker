@@ -25,7 +25,7 @@ namespace QuizMaker
             int score = 0;
             int qnaNum = 1;
 
-            var path = @"E:\Projects\Programming\C#\Rakete Mentoring\Week 11\QuizMaker\UserTests\userTest.xml";           
+            var path = @"E:\Projects\Programming\CSharp\RaketeMentoring\Week11\QuizMaker\UserTests\userTest.xml";           
 
             List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
             QuestionAndAnswer qna;
@@ -68,22 +68,40 @@ namespace QuizMaker
                     {
                         Load(path, QnAs);
 
-                        for (int i = 0; i < QnAs.Count; i++)
+                        qnaNum = 1;
+
+                        if (QnAs.Count == 0)
                         {
-                            qna = UIMethods.GetRndQnA(QnAs);                //maybe different approach: shuffle list first, and then go one by one
-                            answer = UIMethods.AskQGetA(qna, qnaNum);
-                            if (answer.isCorrect)
-                            {
-                                score++;
-                                UIMethods.Correct();
-                            }
-                            else
-                            {
-                                UIMethods.InCorrect(qna);
-                            }
-                            qnaNum++;
+                            UIMethods.EmptyQuiz();
                         }
-                        UIMethods.QuizComplete(QnAs, score);
+                        else
+                        {
+                            for (int i = 0; i < QnAs.Count; i++)
+                            {
+                                qna = UIMethods.GetRndQnA(QnAs);
+
+                                answer = UIMethods.AskQGetA(qna, qnaNum);
+
+                                if (answer.isCorrect)
+                                {
+                                    score++;
+                                    UIMethods.Correct();
+                                }
+                                else
+                                {
+                                    UIMethods.InCorrect(qna);
+                                }
+
+                                qnaNum++;
+
+                                if (QnAs.Count > 1)
+                                {
+                                    QnAs.RemoveAt(i);
+                                }
+
+                            }
+                            UIMethods.QuizComplete(QnAs, score);
+                        }
                     }
                 }
             }

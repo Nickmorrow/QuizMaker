@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuizMaker
 {
-    public class UIMethods
+    public static class UIMethods
     {
         /// <summary>
         /// Welcome message, asks user if they would like to create a quiz or load a quiz
@@ -150,11 +150,38 @@ namespace QuizMaker
         public static QuestionAndAnswer GetRndQnA(List<QuestionAndAnswer> QnAs)
         {
             Random random = new Random();
-            QuestionAndAnswer rndQuestion;
-            rndQuestion = QnAs[random.Next(QnAs.Count)];
-            return rndQuestion;
-
+            QuestionAndAnswer rndQuestion;                    
+            rndQuestion = QnAs[random.Next(QnAs.Count)];                          
+            return rndQuestion;                      
         }
+
+        //public static QuestionAndAnswer Randomize(List<QuestionAndAnswer> QnAs)
+        //{
+        //    Random random = new Random();
+        //    QuestionAndAnswer rndQuestion;
+        //    int value = random.Next(QnAs.Count);
+        //    for (int i = 0; i < QnAs.Count; i++)
+        //    {
+        //        QnAs[value];
+        //    }
+        //    rndQuestion = QnAs[random.Next(QnAs.Count)];
+        //    return rndQuestion;
+        //}
+
+        public static void Shuffle<T>(this IList<T> list) //taken from interwebz
+        {
+            Random rnd = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rnd.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
         /// <summary>
         /// Tells user when they are correct
         /// </summary>
@@ -171,17 +198,20 @@ namespace QuizMaker
         /// <param name="qna"></param>
         public static void InCorrect(QuestionAndAnswer qna)
         {
-            Answer answer;
-            List<Answer> CorrectAnswers = new List<Answer>();
+            //Answer answer;
+            //List<Answer> CorrectAnswers = new List<Answer>();
+            string correctAnswer = "";
             
             for (int i = 0; i < qna.Answers.Count; i++)
             {
                 if (qna.Answers[i].isCorrect)
                 {
-                    CorrectAnswers.Add(qna.Answers[i]);
+                    //CorrectAnswers.Add(qna.Answers[i]);
+                    correctAnswer = qna.Answers[i].answerString;
                 }
             }
-            Console.WriteLine($"Incorrect! the correct answer was {CorrectAnswers.ToString()} \npress any key to continue");
+            
+            Console.WriteLine($"Incorrect! the correct answer was {correctAnswer} \npress any key to continue");
             Console.ReadKey();
             Console.Clear();
 
@@ -205,5 +235,11 @@ namespace QuizMaker
             Console.Clear();
         }
 
+        public static void EmptyQuiz()
+        {
+            Console.WriteLine("This quiz is empty, please load or create a valid quiz. press any key to continue.");
+            Console.ReadKey();
+            Console.Clear();
+        }
     }
 }
