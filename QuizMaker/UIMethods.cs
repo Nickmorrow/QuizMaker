@@ -155,33 +155,6 @@ namespace QuizMaker
             return rndQuestion;                      
         }
 
-        //public static QuestionAndAnswer Randomize(List<QuestionAndAnswer> QnAs)
-        //{
-        //    Random random = new Random();
-        //    QuestionAndAnswer rndQuestion;
-        //    int value = random.Next(QnAs.Count);
-        //    for (int i = 0; i < QnAs.Count; i++)
-        //    {
-        //        QnAs[value];
-        //    }
-        //    rndQuestion = QnAs[random.Next(QnAs.Count)];
-        //    return rndQuestion;
-        //}
-
-        public static void Shuffle<T>(this IList<T> list) //taken from interwebz
-        {
-            Random rnd = new Random();
-            int n = list.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = rnd.Next(n + 1);
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
-            }
-        }
-
         /// <summary>
         /// Tells user when they are correct
         /// </summary>
@@ -198,16 +171,13 @@ namespace QuizMaker
         /// <param name="qna"></param>
         public static void InCorrect(QuestionAndAnswer qna)
         {
-            //Answer answer;
-            //List<Answer> CorrectAnswers = new List<Answer>();
             string correctAnswer = "";
             
             for (int i = 0; i < qna.Answers.Count; i++)
             {
                 if (qna.Answers[i].isCorrect)
                 {
-                    //CorrectAnswers.Add(qna.Answers[i]);
-                    correctAnswer = qna.Answers[i].answerString;
+                    correctAnswer = correctAnswer + qna.Answers[i].answerString;
                 }
             }
             
@@ -216,6 +186,26 @@ namespace QuizMaker
             Console.Clear();
 
         }
+        public static void InCorrect2(QuestionAndAnswer qna)
+        {
+
+            Console.WriteLine("Wrong: The Correct answers are:");
+
+
+            for (int i = 0; i < qna.Answers.Count; i++)
+            {
+                if (qna.Answers[i].isCorrect)
+                {
+                    Console.WriteLine(qna.Answers[i].answerString);
+                }
+            }
+
+ 
+            Console.ReadKey();
+            Console.Clear();
+
+        }
+
         /// <summary>
         /// Tells user when the quiz is over and gives them their score
         /// </summary>
@@ -228,16 +218,21 @@ namespace QuizMaker
             Console.ReadKey();
             Console.Clear();
         }
+        /// <summary>
+        /// Checks if the file directory is empty or not and displays message
+        /// </summary>
         public static void FolderEmpty()
         {
             Console.WriteLine("There are no files in this directory, press any key to return to the main menu");
             Console.ReadKey();
             Console.Clear();
         }
-
+        /// <summary>
+        /// Checks is the quiz is empty or not and displays message
+        /// </summary>
         public static void EmptyQuiz()
         {
-            Console.WriteLine("This quiz is empty, please load or create a valid quiz. press any key to continue.");
+            Console.WriteLine("This quiz is empty, please load or create a valid quiz. Press any key to continue.");
             Console.ReadKey();
             Console.Clear();
         }

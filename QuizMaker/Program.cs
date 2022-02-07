@@ -16,7 +16,7 @@ namespace QuizMaker
     public class Program
     {
         public static void Main()
-        {          
+        {            
             bool quizMaker = true;
             bool startNewQuiz;
             bool buildingQuiz = true;
@@ -25,14 +25,14 @@ namespace QuizMaker
             int score = 0;
             int qnaNum = 1;
 
-            var path = @"E:\Projects\Programming\CSharp\RaketeMentoring\Week11\QuizMaker\UserTests\userTest.xml";           
+            var path = @"E:\Projects\Programming\CSharp\RaketeMentoring\Week11\QuizMaker\UserTests\userTest.xml";
 
             List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
             QuestionAndAnswer qna;
             Answer answer;
-
+          
             while (quizMaker)
-            {             
+            {                
                 startNewQuiz = UIMethods.NewQuiz();//Welcome message, asks user if they want to start a new quiz or load existing             
 
                 if (startNewQuiz)
@@ -55,7 +55,8 @@ namespace QuizMaker
                             buildingQuiz = false;
                         }
                     }
-                }               
+                }
+                
                 if (!startNewQuiz)
                 {                   
                     folderEmpty = !File.Exists(path);
@@ -66,9 +67,10 @@ namespace QuizMaker
                     }
                     else
                     {
-                        Load(path, QnAs);
+                        QnAs = Load(path);
 
                         qnaNum = 1;
+                        score = 0;
 
                         if (QnAs.Count == 0)
                         {
@@ -76,9 +78,11 @@ namespace QuizMaker
                         }
                         else
                         {
+                            QnAs = Shuffle(QnAs);
+
                             for (int i = 0; i < QnAs.Count; i++)
                             {
-                                qna = UIMethods.GetRndQnA(QnAs);
+                                qna = QnAs[i];
 
                                 answer = UIMethods.AskQGetA(qna, qnaNum);
 
@@ -93,12 +97,6 @@ namespace QuizMaker
                                 }
 
                                 qnaNum++;
-
-                                if (QnAs.Count > 1)
-                                {
-                                    QnAs.RemoveAt(i);
-                                }
-
                             }
                             UIMethods.QuizComplete(QnAs, score);
                         }
@@ -106,9 +104,14 @@ namespace QuizMaker
                 }
             }
         }
-
-        public static List<QuestionAndAnswer> Load(string path, List<QuestionAndAnswer> QnAs)
+        /// <summary>
+        /// Deserializes quiz stored in xml
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static List<QuestionAndAnswer> Load(string path)
         {
+            List<QuestionAndAnswer> QnAs = new List<QuestionAndAnswer>();
             XmlSerializer serializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
             using (FileStream file = File.OpenRead(path))
             {
@@ -117,7 +120,11 @@ namespace QuizMaker
             return QnAs;
 
         }
-
+        /// <summary>
+        /// Serializes quiz to xml doc
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="QnAs"></param>
         public static void Save(string path, List<QuestionAndAnswer> QnAs)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
@@ -125,6 +132,26 @@ namespace QuizMaker
             {
                 serializer.Serialize(file, QnAs);
             }
+        }
+        /// <summary>
+        /// Shuffles order of questions in list
+        /// </summary>
+        /// <param name="toShuffle"></param>
+        /// <returns></returns>
+        public static List<QuestionAndAnswer> Shuffle(List<QuestionAndAnswer> toShuffle)
+        {
+            Random rnd = new Random();
+            int n = toShuffle.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rnd.Next(n + 1);
+                QuestionAndAnswer value = toShuffle[k];
+                toShuffle[k] = toShuffle[n];
+                toShuffle[n] = value;
+            }
+
+            return toShuffle;
         }
     }
 }
